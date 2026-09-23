@@ -24,3 +24,9 @@ All quantities, prices and movement records are illustrative. Project names come
 ## Repository
 
 https://github.com/kittuteja/ssr-infratech-dashboard
+
+## Brand assets
+
+The unmodified logo (`ssr-logo.jpg`) and favicon (`favicon.jpg`) come from SSR INFRATECH's official website, https://ssrinfratech.in/. Original logo: https://ssrinfratech.in/wp-content/uploads/2026/01/cropped-SSR-INFRATECH_Business-Card-2.jpg. Original favicon: https://ssrinfratech.in/wp-content/uploads/2026/01/cropped-SSR-INFRATECH_Business-Card-2-32x32.jpg.
+
+Palette: orange #F7941D, cream #FFEFDC, charcoal #333333 and white. Typography uses the site's Poppins, Outfit and Playfair families via Google Fonts. The dashboard uses SSR's published tagline: “Built with trust. Designed with intention. Delivered with integrity.”
