@@ -1,36 +1,28 @@
-# SSR INFRATECH dashboard
+# SSR INFRATECH — Material Management
 
-First working Material Management prototype for SSR INFRATECH, Kurnool.
+[Open the live dashboard](https://ssr-infratech-materials.stardhoomer.chatgpt.site)
 
-## Run
+The full-stack release is deployed privately and requires sign-in with the owner’s account. It uses a shared persistent database for material categories, brands, suppliers, stock receipts/issues, batches, dated history and user attribution. The official SSR logo and website colour palette are preserved.
 
-Serve this folder with any static HTTP server, for example `python3 -m http.server 4173`.
+## Full-stack source
 
-No package installation or build is required. The page uses plain HTML, CSS and JavaScript. Google Fonts are optional; system sans-serif is the fallback.
+The complete deployed source is in [ssr-infratech-fullstack-source.tar.gz](ssr-infratech-fullstack-source.tar.gz). It contains the frontend, Worker API, SQLite development server, database schema, generated migrations, tests and package lockfile. It excludes credentials, dependencies and local inventory data.
 
-## Features
+```sh
+tar -xzf ssr-infratech-fullstack-source.tar.gz
+cd ssr-infratech-fullstack
+npm ci
+npm test
+npm run build
+npm run dev
+```
 
-- Inventory and valuation by project
-- Category groups and category, brand, text and stock-status filters
-- Brand, supplier, specifications, automatic creation/update dates and editable material metadata
-- Per-material movement history with movement date, recorded date, supplier/recipient, batch and reference
-- Add materials with units, reorder levels and costs
-- Receive or issue materials; prevent issuing more than available
-- Movement history, low-stock alerts and filtered CSV export
-- Responsive layout and keyboard-accessible native dialogs
+Use Node.js 24 or later, then open http://127.0.0.1:4174. See the archive’s README for hosting and schema migration details.
 
-## Data boundary
+Source snapshot: `6183cd0b9dcc0881bd40b623067ae3ad845c7251`.
 
-All quantities, prices and movement records are illustrative. Project names come from the company's public website. Records are saved in localStorage in the current browser and survive refreshes. They are not shared across devices or users, and clearing browser data removes them. CSV exports should be kept for backup. This is not a production inventory system and has no shared database, user roles or server-side audit log yet.
+The root HTML, CSS and JavaScript files are the earlier browser-storage prototype. Use the live link or full-stack source archive for the current database-backed application. The live database starts empty; prototype sample data and preview test data are not imported.
 
-## Repository
+## Validation
 
-https://github.com/kittuteja/ssr-infratech-dashboard
-
-## Brand assets
-
-The unmodified logo (`ssr-logo.jpg`) and favicon (`favicon.jpg`) come from SSR INFRATECH's official website, https://ssrinfratech.in/. Original logo: https://ssrinfratech.in/wp-content/uploads/2026/01/cropped-SSR-INFRATECH_Business-Card-2.jpg. Original favicon: https://ssrinfratech.in/wp-content/uploads/2026/01/cropped-SSR-INFRATECH_Business-Card-2-32x32.jpg.
-
-Palette: orange #F7941D, cream #FFEFDC, charcoal #333333 and white. Typography uses the site's Poppins, Outfit and Playfair families via Google Fonts. The dashboard uses SSR's published tagline: “Built with trust. Designed with intention. Delivered with integrity.”
-
-Materials with different brands or projects use separate stock records. Known brands, units and projects are fixed after creation to avoid rewriting a ledger’s identity. Sample records have no invented supplier or creation date; missing brands can be filled in. The stored history is local browser data, not a tamper-proof audit trail.
+Five backend tests pass: authentication/origin checks, idempotent material creation, concurrent stock updates, version-controlled edits, and invalid data rejection. Browser verification covered creating a material and seeing its saved history after reload.
