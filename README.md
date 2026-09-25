@@ -1,5 +1,13 @@
 # SSR INFRATECH — Material Management
 
+## Vercel development dashboard
+
+The complete Vercel-ready **DEV application** is in [`vercel-dev/`](vercel-dev/), including email/username login, administrator-managed staff accounts, material tracking and persistent Turso libSQL storage.
+
+Import this repository into a **new development Vercel project** and select **Root Directory: `vercel-dev`**. Follow the [deployment guide](vercel-dev/VERCEL-DEPLOY.md) to configure a separate development database and private owner setup key. The build command is `npm run vercel-build`; Node.js 24 and the remaining settings are configured in that folder. All 18 automated tests passed before this source was prepared.
+
+This source update does not deploy the app or change either existing hosted site. Existing hosted accounts and inventory are not copied automatically. Keep the live database separate from Vercel development and preview databases.
+
 ## Environments
 
 | Environment | Dashboard | Source archive |
@@ -7,11 +15,11 @@
 | Development — testing | [Open development](https://ssr-infratech-materials-dev.stardhoomer.chatgpt.site) | [Development source](ssr-infratech-dev-source.tar.gz) |
 | Production — real inventory | [Open production](https://ssr-infratech-materials.stardhoomer.chatgpt.site) | [Production source](ssr-infratech-fullstack-source.tar.gz) |
 
-Both dashboards are private and require the owner's sign-in. They are separate Sites projects with separate databases. Development stock entries and deployments do not update production. The development dashboard is labeled DEVELOPMENT WORKSPACE.
+These existing dashboards use separate Sites projects and databases. Production retains its existing access controls; the hosted development version supports SSR staff credentials. Development stock entries and deployments do not update production. The development dashboard is labeled DEVELOPMENT WORKSPACE.
 
 ## Full-stack source
 
-The archives contain the frontend, Worker API, local SQLite server, database schema, generated migrations, tests and package lockfile. Credentials, dependencies and local inventory data are excluded. Root HTML, CSS and JavaScript files are the earlier browser-storage prototype; use the archives for the current database-backed application.
+The archives are older snapshots of the Sites deployments. They contain the frontend, Worker API, local SQLite server, database schema, generated migrations, tests and package lockfile. Credentials, dependencies and local inventory data are excluded. Root HTML, CSS and JavaScript files are the earlier browser-storage prototype. Use `vercel-dev/` for the current Vercel development application.
 
 ### Run development locally
 
