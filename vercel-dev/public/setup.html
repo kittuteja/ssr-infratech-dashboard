@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SSR INFRATECH DEV · Owner setup</title><link rel="icon" href="favicon.jpg"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="account.css"><script src="account.js" defer></script></head>
+<body class="account-page" data-page="setup"><main class="account-card"><img class="login-logo" src="ssr-logo.jpg" alt="SSR INFRATECH"><p class="environment-label">DEVELOPMENT WORKSPACE</p>
+<h1 id="setup-title">Set up your administrator</h1><p id="setup-description">Verify ownership to create your SSR administrator account.</p>
+<p class="account-error" role="alert" id="account-error"></p>
+<form id="setup-form" hidden><label><span id="owner-key-label">Owner setup key</span><input name="ownerKey" type="password" required minlength="64" maxlength="64" pattern="[a-f0-9]{64}" autocomplete="off" spellcheck="false"></label><p class="field-help" id="owner-key-help">Enter the private setup key provided by the deployment owner.</p><div id="setup-profile"><label>Your name<input name="name" required maxlength="80" autocomplete="name"></label><label>Admin username or email<input name="username" required minlength="3" maxlength="254" autocomplete="username" autocapitalize="none" spellcheck="false"></label></div>
+<label>New password<input name="password" type="password" required minlength="15" maxlength="128" autocomplete="new-password"></label><p class="field-help">15–128 characters. Use a long phrase unique to this account.</p>
+<label>Confirm password<input name="confirmPassword" type="password" required minlength="15" maxlength="128" autocomplete="new-password"></label>
+<button class="primary" type="submit" id="setup-submit">Create administrator account</button></form>
+<a class="owner-link" href="/login">Back to staff sign-in</a></main></body></html>
