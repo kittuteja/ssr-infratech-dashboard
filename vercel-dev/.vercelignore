@@ -1,0 +1,8 @@
+.git
+node_modules
+dist
+.sites-runtime
+.openai
+.env*
+*.sqlite*
+tests
