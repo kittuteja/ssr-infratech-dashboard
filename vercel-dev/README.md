@@ -40,7 +40,7 @@ Open http://127.0.0.1:4176/owner-setup. Enter the same key and choose an adminis
 
 `server/libsql.mjs` adapts the existing prepared statements to libSQL. Transactional batches preserve SQLite `changes()` guards so concurrent stock issues cannot overwrite stock or create incorrect history. A hosted deployment requires a remote database; a local SQLite file is rejected on Vercel.
 
-`npm run vercel-build` validates database configuration, applies migrations and builds the app. `drizzle/*.sql` migrations are applied transactionally and recorded with hashes. Repeated deployments skip applied migrations; changed migration files fail rather than silently altering history. Generate new migrations with `npm run db:generate`; never edit previously applied ones.
+`npm run vercel-build` validates database configuration, applies migrations and builds the app. Build failures identify the environment, stage and safe error code; missing Preview variables, owner setup, token/connection errors and migration-file/statement failures are distinguished without logging secrets. `drizzle/*.sql` migrations are applied transactionally and recorded with hashes. Repeated deployments skip applied migrations; changed migration files fail rather than silently altering history. Generate new migrations with `npm run db:generate`; never edit previously applied ones.
 
 Passwords use salted scrypt. Sessions use HttpOnly, Secure (HTTPS), SameSite=Strict cookies with hashed tokens, CSRF protection and a 12-hour lifetime. Login and owner-key attempts are rate limited in the database. Client-supplied former-host identity headers grant no privileges. There is no public signup or automatic reset email.
 

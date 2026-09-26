@@ -98,7 +98,10 @@ Generate a **new different key**, set `OWNER_RECOVERY_KEY` in the DEV project's 
 
 ## Troubleshooting
 
-- **Database initialization failed:** verify the libSQL engine, URL, read/write token, selected Vercel environment and connectivity. On an empty database, provide `OWNER_SETUP_KEY`. Keep migration files unchanged.
+- **Database initialization failed:** the build now prints a safe error code, deployment environment and stage. `DB_URL_MISSING` / `DB_TOKEN_MISSING` means the corresponding variable is absent for that deployment. A PR/non-main branch normally uses **Preview**, so Production-only variables are not available. In the DEV project’s Settings → Environment Variables, configure `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` for Preview (or its branch override), using a separate preview database, then redeploy. Vercel’s **Development** scope is for local `vercel dev`, not hosted previews.
+- **`OWNER_SETUP_REQUIRED`:** the selected database has no owner; set a new private `OWNER_SETUP_KEY` for the same environment using `npm run setup:key`. Existing database owners need no new setup key.
+- **`DB_HTTP_401` / `DB_HTTP_403` / `SQLITE_READONLY`:** verify the token is valid, belongs to the selected database and permits migration writes. A `MIGRATION_CHANGED` error requires restoring the original migration from Git, not changing the database ledger. SQL errors identify the migration file and statement number without printing SQL or credentials.
+- **npm deprecation/audit/install-script warnings:** these are separate from a database-initialization failure. Do not run `npm audit fix --force` to try to fix missing deployment variables; it can change dependency versions without solving the configuration issue.
 - **Administrator setup is disabled:** add a valid `OWNER_SETUP_KEY` and redeploy if this database has no administrator. If it already has an administrator, sign in or use the separate recovery procedure.
 - **Wrong page, missing function or 404:** verify the selected root contains this package's `vercel.json`, `api/handler.mjs` and `package.json`. Do not deploy the old prototype or upload only `dist`.
 - **Local preview:** use Node.js 24, configure `.env.local` from `.env.example`, and run `npm run dev`. The local database is intentionally separate from the Vercel database.
@@ -111,3 +114,5 @@ Reference: [Vercel Node.js functions](https://vercel.com/docs/functions/runtimes
 This module is Admin-only and uses the same SSR login and development database. Before upgrading, follow the backup guidance in [README.md](README.md). The build applies additive migration `0002_people_payments.sql`; do not edit old migrations, replace the database or recreate the existing owner. No additional secrets or banking/payment integrations are required.
 
 After deployment, an Admin can open `/people-payments` from the inventory navigation. Verify financial pages/APIs/exports are denied to Staff and signed-out visitors, and that existing inventory and sessions are preserved. No financial records are seeded. Run synthetic financial tests only in a disposable local or isolated preview database. Keep Preview credentials separate from the stable DEV project and both separate from SSR’s live dashboard.
+
+Environment scope reference: [Vercel environment variables](https://vercel.com/docs/environment-variables). Variable changes apply to new deployments; [redeploy after updating them](https://vercel.com/docs/environment-variables/managing-environment-variables).
