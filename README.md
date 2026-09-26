@@ -4,7 +4,7 @@
 
 The complete Vercel-ready **DEV application** is in [`vercel-dev/`](vercel-dev/), including email/username login, administrator-managed staff accounts, material tracking, Admin-only People & Payments and persistent Turso libSQL storage.
 
-Import this repository into a **new development Vercel project** and select **Root Directory: `vercel-dev`**. Follow the [deployment guide](vercel-dev/VERCEL-DEPLOY.md) to configure a separate development database and private owner setup key. The build command is `npm run vercel-build`; Node.js 24 and the remaining settings are configured in that folder. All 34 automated tests pass, including 15 People & Payments tests.
+Import this repository into a **new development Vercel project** and select **Root Directory: `vercel-dev`**. Follow the [deployment guide](vercel-dev/VERCEL-DEPLOY.md) to configure a separate development database and private owner setup key. The build command is `npm run vercel-build`; Node.js 24 and the remaining settings are configured in that folder. All 40 automated tests pass, including 15 People & Payments tests and 6 deployment-diagnostic tests.
 
 This source update is prepared for the separate Vercel DEV project; it does not publish to either existing Sites dashboard. Existing hosted accounts and inventory are not copied automatically. Keep the live database separate from Vercel development and preview databases.
 
