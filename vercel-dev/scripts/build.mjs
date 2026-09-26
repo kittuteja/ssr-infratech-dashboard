@@ -1,9 +1,11 @@
-import { mkdir, readFile, writeFile, rm, readdir } from 'node:fs/promises';
+import { mkdir, readFile, writeFile, copyFile, rm, readdir } from 'node:fs/promises';
 import { build } from 'esbuild';
 await rm('dist', { recursive: true, force: true });
 await mkdir('dist/server', { recursive: true });
-// All assets go through the authenticated function, never a public static copy.
+// Vercel requires a non-empty static output directory. Only the already-public
+// favicon is copied here; dashboard pages and APIs stay behind the function.
 await mkdir('dist/static', { recursive: true });
+await copyFile('public/favicon.jpg', 'dist/static/favicon.jpg');
 const types = { html: 'text/html; charset=utf-8', js: 'text/javascript; charset=utf-8', css: 'text/css; charset=utf-8', jpg: 'image/jpeg' };
 const assets = {};
 for (const file of await readdir('public')) {
