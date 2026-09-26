@@ -79,7 +79,7 @@ Here `--prod` publishes the stable URL of the DEV project; do not link this fold
 5. After setup, remove `OWNER_SETUP_KEY` from Vercel and redeploy. Existing accounts and data remain intact; the initial setup key cannot reset an existing administrator.
 6. Open **Staff accounts** to create development staff logins. Temporary passwords are displayed once, expire in 24 hours, and must be changed after the first sign-in. No email is sent automatically.
 
-Old-host credentials are not transferred automatically. A fresh database starts with no users or materials.
+Old-host credentials are not transferred automatically. A fresh database starts with no users, materials or financial records. Existing Vercel DEV administrators keep their credentials when upgrading.
 
 ## 6. Verify the deployed DEV app
 
@@ -104,3 +104,10 @@ Generate a **new different key**, set `OWNER_RECOVERY_KEY` in the DEV project's 
 - **Local preview:** use Node.js 24, configure `.env.local` from `.env.example`, and run `npm run dev`. The local database is intentionally separate from the Vercel database.
 
 Reference: [Vercel Node.js functions](https://vercel.com/docs/functions/runtimes/node-js).
+
+
+## People & Payments upgrade
+
+This module is Admin-only and uses the same SSR login and development database. Before upgrading, follow the backup guidance in [README.md](README.md). The build applies additive migration `0002_people_payments.sql`; do not edit old migrations, replace the database or recreate the existing owner. No additional secrets or banking/payment integrations are required.
+
+After deployment, an Admin can open `/people-payments` from the inventory navigation. Verify financial pages/APIs/exports are denied to Staff and signed-out visitors, and that existing inventory and sessions are preserved. No financial records are seeded. Run synthetic financial tests only in a disposable local or isolated preview database. Keep Preview credentials separate from the stable DEV project and both separate from SSR’s live dashboard.
