@@ -10,3 +10,6 @@ dist/
 *.sqlite-wal
 .DS_Store
 .vercel/
+
+# Also ignore a local dependency-directory symlink.
+node_modules

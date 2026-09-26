@@ -33,7 +33,7 @@
     $('#account-audit').innerHTML = history.events.map(event => `<div class="audit-entry">${esc(event.action)} · ${esc(event.name)} (${esc(event.username)})<small>By ${esc(event.actor)} · ${esc(formatTime(event.recorded_at))}</small></div>`).join('') || '<p>No account changes yet.</p>';
     $('#user-rows').querySelectorAll('[data-user-action]').forEach(button => button.addEventListener('click', () => {
       const user = data.users.find(item => item.id === button.dataset.id), action = button.dataset.userAction;
-      $('#confirm-message').textContent = action === 'reset' ? `Reset ${user.name}’s password? Their current password and sessions will stop working. A new temporary password will be shown.` : action === 'active' ? `${user.active ? 'Deactivate' : 'Activate'} ${user.name}’s account? Existing sessions will be signed out.` : `Change ${user.name} to ${user.role === 'admin' ? 'Staff' : 'Admin'}? Admins can create and manage staff accounts. Existing sessions will be signed out.`;
+      $('#confirm-message').textContent = action === 'reset' ? `Reset ${user.name}’s password? Their current password and sessions will stop working. A new temporary password will be shown.` : action === 'active' ? `${user.active ? 'Deactivate' : 'Activate'} ${user.name}’s account? Existing sessions will be signed out.` : `Change ${user.name} to ${user.role === 'admin' ? 'Staff' : 'Admin'}? Admins can manage staff accounts and view and edit all financial records. Existing sessions will be signed out.`;
       $('#confirm-error').textContent = '';
       accountAction = async () => action === 'reset' ? request(`/api/users/${user.id}/reset-password`, { method: 'POST', data: {} }) : request(`/api/users/${user.id}`, { method: 'PATCH', data: { role: action === 'role' ? (user.role === 'admin' ? 'staff' : 'admin') : user.role, active: action === 'active' ? !user.active : user.active } });
       $('#confirm-dialog').showModal();
@@ -82,7 +82,7 @@
       const signIn = $('#signin-link'); if (signIn) signIn.href = '/login';
       const links = document.createElement('div'); links.className = 'account-links';
       const passwordLink = document.createElement('a'); passwordLink.href = '/password'; passwordLink.textContent = 'My password'; links.append(passwordLink);
-      if (state.user.role === 'admin') { const staff = document.createElement('a'); staff.href = '/users'; staff.textContent = 'Staff accounts'; links.prepend(staff); }
+      if (state.user.role === 'admin') { const finance = document.createElement('a'); finance.href = '/people-payments'; finance.textContent = 'People & Payments'; links.append(finance); const staff = document.createElement('a'); staff.href = '/users'; staff.textContent = 'Staff accounts'; links.prepend(staff); }
       $('.sidebar nav')?.append(links);
       const badge = $('.demo-pill'); if (badge) badge.textContent = 'DEVELOPMENT WORKSPACE';
     }
