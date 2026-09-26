@@ -2,11 +2,15 @@
 
 ## Vercel development dashboard
 
-The complete Vercel-ready **DEV application** is in [`vercel-dev/`](vercel-dev/), including email/username login, administrator-managed staff accounts, material tracking and persistent Turso libSQL storage.
+The complete Vercel-ready **DEV application** is in [`vercel-dev/`](vercel-dev/), including email/username login, administrator-managed staff accounts, material tracking, Admin-only People & Payments and persistent Turso libSQL storage.
 
-Import this repository into a **new development Vercel project** and select **Root Directory: `vercel-dev`**. Follow the [deployment guide](vercel-dev/VERCEL-DEPLOY.md) to configure a separate development database and private owner setup key. The build command is `npm run vercel-build`; Node.js 24 and the remaining settings are configured in that folder. All 18 automated tests passed before this source was prepared.
+Import this repository into a **new development Vercel project** and select **Root Directory: `vercel-dev`**. Follow the [deployment guide](vercel-dev/VERCEL-DEPLOY.md) to configure a separate development database and private owner setup key. The build command is `npm run vercel-build`; Node.js 24 and the remaining settings are configured in that folder. All 34 automated tests pass, including 15 People & Payments tests.
 
-This source update does not deploy the app or change either existing hosted site. Existing hosted accounts and inventory are not copied automatically. Keep the live database separate from Vercel development and preview databases.
+This source update is prepared for the separate Vercel DEV project; it does not publish to either existing Sites dashboard. Existing hosted accounts and inventory are not copied automatically. Keep the live database separate from Vercel development and preview databases.
+
+### People & Payments
+
+Admins can maintain people/entities with multiple roles and projects, record incoming/outgoing INR payments, create separate receivables/payables, apply partial payments, record linked refunds, review correction history and export filtered CSV reports. Staff cannot access financial records. No bank connection or money transfer is involved, and no sample financial records are seeded. See the [module definitions, permissions, migration and backup guide](vercel-dev/README.md#people--payments-setup-and-use). Existing inventory, accounts and sessions are preserved by additive migration `0002_people_payments.sql`.
 
 ## Environments
 
