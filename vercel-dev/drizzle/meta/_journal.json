@@ -15,6 +15,13 @@
       "when": 1790315638532,
       "tag": "0001_medical_thunderbolts",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1790434147587,
+      "tag": "0002_people_payments",
+      "breakpoints": true
     }
   ]
 }

@@ -35,7 +35,7 @@ test('libSQL migrations are repeatable, detect edits and roll back failed schema
   const client = createClient({ url: ':memory:' });
   try {
     const migrations = await loadMigrations();
-    assert.equal(await migrate(client, migrations), 2);
+    assert.equal(await migrate(client, migrations), migrations.length);
     assert.equal(await migrate(client, migrations), 0);
     await assert.rejects(migrate(client, [{ ...migrations[0], hash: 'changed' }]), /Previously applied/);
     await assert.rejects(migrate(client, [{ name: 'broken.sql', hash: 'x', statements: ['CREATE TABLE rollback_test (id TEXT)', 'THIS IS INVALID SQL'] }]));
